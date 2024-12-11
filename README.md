@@ -7,7 +7,7 @@
 - Flashlight
 - Low resolution textures
 - Retro-themed
-- Atmospheric
+- Atmospheric 3D Map
 - Basic First Person Controller
 
 ![Screenshot 2024-12-11 175954](https://github.com/user-attachments/assets/c463f3cb-fd9f-4367-bbcc-bdb2e39861a6)
