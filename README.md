@@ -1,6 +1,5 @@
 # Godot 4.3
-## Retro Snow Environment
-## Attempt #1
+## Retro Snow Environment | Attempt 1
 
 ### Features:
 - Blizzard ambience
