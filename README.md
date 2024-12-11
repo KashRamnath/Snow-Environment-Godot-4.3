@@ -5,7 +5,8 @@
 - Blizzard ambience
 - Falling snow (GPU Particles)
 - Flashlight
-- Low Resolution textures
+- Low resolution textures
+- Retro-themed
 - Atmospheric
 
 ![Screenshot 2024-12-11 175954](https://github.com/user-attachments/assets/c463f3cb-fd9f-4367-bbcc-bdb2e39861a6)
