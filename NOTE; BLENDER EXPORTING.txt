@@ -1,0 +1,9 @@
+rename object
+it item menu (press n if not visible)
+set all location params to 0m
+ctrl + a > all transforms
+file > export > gltf
+choose location > name file
+include > limit to selected objects
+remember export settings
+export gltf

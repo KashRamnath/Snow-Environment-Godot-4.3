@@ -1,0 +1,121 @@
+[gd_scene load_steps=18 format=3 uid="uid://de4mglyph7ctj"]
+
+[ext_resource type="Texture2D" uid="uid://x0glf6v75rd6" path="res://assets/textures/snow_02_diff_1k.png" id="1_31qjj"]
+[ext_resource type="Texture2D" uid="uid://bbvicmj5587qv" path="res://assets/env/kloppenheim_02_puresky_1k.hdr" id="1_b5ite"]
+[ext_resource type="Texture2D" uid="uid://72as81c0qd8y" path="res://assets/textures/snow_02_nor_gl_1k.png" id="2_5tb5x"]
+[ext_resource type="PackedScene" uid="uid://rlfrojdfsx3e" path="res://player/player.tscn" id="2_lgyw7"]
+[ext_resource type="Texture2D" uid="uid://bx1wkbcketqan" path="res://assets/textures/snow_02_rough_1k.png" id="3_3yfo7"]
+[ext_resource type="MeshLibrary" uid="uid://c36ox3g6s8i3t" path="res://assets/models/boulder_mesh.tres" id="5_rjaiq"]
+[ext_resource type="AudioStream" uid="uid://bxckb7wkrothr" path="res://assets/sounds/zapsplat_nature_wind_cold_blizzard_snow_storm_002_85968.mp3" id="7_iiarc"]
+[ext_resource type="Texture2D" uid="uid://bkdhy88kp0cke" path="res://kenney_particle_pack/magic_04.png" id="8_ltrwc"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_7t66a"]
+panorama = ExtResource("1_b5ite")
+
+[sub_resource type="Sky" id="Sky_oem6i"]
+sky_material = SubResource("PanoramaSkyMaterial_7t66a")
+
+[sub_resource type="Environment" id="Environment_cgu4r"]
+background_mode = 2
+sky = SubResource("Sky_oem6i")
+sky_rotation = Vector3(0, 3.31613, 0)
+glow_enabled = true
+fog_enabled = true
+fog_density = 0.04
+fog_sky_affect = 0.85
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t7bb7"]
+albedo_texture = ExtResource("1_31qjj")
+roughness_texture = ExtResource("3_3yfo7")
+normal_enabled = true
+normal_texture = ExtResource("2_5tb5x")
+uv1_scale = Vector3(4, 4, 4)
+texture_filter = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_8svq6"]
+material = SubResource("StandardMaterial3D_t7bb7")
+size = Vector2(100, 100)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_3w3xu"]
+data = PackedVector3Array(50, 0, 50, -50, 0, 50, 50, 0, -50, -50, 0, 50, -50, 0, -50, 50, 0, -50)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tjqo6"]
+emission_shape = 3
+emission_box_extents = Vector3(50, 1, 50)
+angle_min = 1.07288e-05
+angle_max = 360.0
+direction = Vector3(1, -1, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 20.0
+angular_velocity_min = 30.0
+angular_velocity_max = 50.0
+linear_accel_min = 0.999998
+linear_accel_max = 10.0
+scale_min = 0.5
+turbulence_enabled = true
+turbulence_noise_speed_random = 1.0
+collision_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1xcod"]
+transparency = 1
+shading_mode = 0
+albedo_texture = ExtResource("8_ltrwc")
+texture_filter = 0
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_7hvb2"]
+material = SubResource("StandardMaterial3D_1xcod")
+
+[node name="World" type="Node"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_cgu4r")
+
+[node name="Ground" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_8svq6")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Ground"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_3w3xu")
+
+[node name="Player" parent="." instance=ExtResource("2_lgyw7")]
+transform = Transform3D(0.534352, 0, -0.845262, 0, 1, 0, 0.845262, 0, 0.534352, -35, 0, 29)
+
+[node name="Boulder_Wall_GridMap" type="GridMap" parent="."]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+mesh_library = ExtResource("5_rjaiq")
+cell_size = Vector3(1, 2, 1)
+cell_center_y = false
+data = {
+"cells": PackedInt32Array(65531, 4, 0, 65533, 4, 1048576, 65535, 4, 0, 1, 4, 1441792, 3, 4, 1441792, 4, 2, 655360, 4, 0, 1048576, 4, 65534, 0, 4, 65532, 1441792, 2, 65531, 1441792, 0, 65531, 655360, 65534, 65531, 1048576, 65532, 65531, 0, 65531, 65533, 0, 65531, 65535, 655360, 65531, 1, 1048576, 65530, 3, 1048576)
+}
+
+[node name="Boulder_GridMap" type="GridMap" parent="."]
+mesh_library = ExtResource("5_rjaiq")
+cell_size = Vector3(1, 2, 1)
+cell_center_y = false
+data = {
+"cells": PackedInt32Array(65529, 6, 1048576, 65515, 12, 0, 65514, 31, 0, 22, 26, 0, 20, 7, 1441792, 27, 65509, 655360, 4, 65509, 1048576, 4, 65510, 1048576, 14, 65524, 1048576, 65519, 65524, 0, 65512, 65502, 0)
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_iiarc")
+autoplay = true
+mix_target = 1
+parameters/looping = true
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, 0)
+amount = 5000
+lifetime = 5.0
+visibility_aabb = AABB(-50, -20, -50, 100, 20, 100)
+process_material = SubResource("ParticleProcessMaterial_tjqo6")
+draw_pass_1 = SubResource("QuadMesh_7hvb2")
+
+[node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="."]
+size = Vector3(100, 0.1, 100)
